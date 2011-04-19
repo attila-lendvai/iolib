@@ -19,7 +19,7 @@
 ;;; Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
 ;;; Boston, MA 02110-1301, USA
 
-(in-package :net.sockets.cc)
+(in-package :iolib.sockets.cc)
 
 (defun make-connection-acceptor (name handler &key (fd-multiplexer-type 'epoll-multiplexer)
                                  worker-count (external-format :default))
@@ -42,7 +42,6 @@
       ;; TODO use alexa:unprotcase
       (unwind-protect
            (progn
-             (setf (fd-non-blocking socket) t)
              (bind-address socket (ensure-hostname address)
                            :port port
                            :reuse-address t)
@@ -79,7 +78,7 @@
             (setf connection
                   (make-connection (%accept (fd-of socket) ss size)
                                    :external-format (external-format-of socket)))
-          (nix:ewouldblock ()
+          (isys:ewouldblock ()
             (return-from accept-one-connection :starving)))
         (when connection
           (bind ((done nil))

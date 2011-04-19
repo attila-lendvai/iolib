@@ -21,9 +21,16 @@
 
 (in-package :common-lisp-user)
 
-(defpackage :net.sockets.cc
-  (:use #:common-lisp :cl-cont :alexandria :io.streams :metabang-bind
-        :net.sockets :trivial-gray-streams :io.multiplex)
+(defpackage :iolib.sockets.cc
+  (:use :alexandria
+        :cl-cont
+        :common-lisp
+        :iolib.multiplex
+        :iolib.sockets
+        :iolib.streams
+        :metabang-bind
+        ;;:trivial-gray-streams
+        )
   (:export
 
    #:shadowing-import-sockets/cc-symbols
@@ -55,7 +62,7 @@
    )
 
    ;; import some "internals", although socket/cc is more like an extension then a user lib
-  (:shadowing-import-from :net.sockets
+  (:shadowing-import-from :iolib.sockets
    #:with-sockaddr-storage
    #:with-socklen
    #:size-of-sockaddr-storage
@@ -63,7 +70,7 @@
    #:%sendto
    )
 
-  (:shadowing-import-from :io.multiplex
+  (:shadowing-import-from :iolib.multiplex
    #:harvest-events
    #:monitor-fd
    #:unmonitor-fd
@@ -72,9 +79,16 @@
 
 #|
 
-(defpackage :net.sockets.cc.shadows
+(defpackage :iolib.sockets.cc.shadows
   (:nicknames #:sockets/cc)
-  (:use #:common-lisp :cl-cont :alexandria :io.streams :metabang-bind :net.sockets :net.sockets.cc)
+  (:use
+   #:common-lisp
+   :cl-cont
+   :alexandria
+   :iolib.streams
+   :metabang-bind
+   :iolib.sockets
+   :iolib.sockets.cc)
 
   (:shadow
    #:read-char
@@ -96,11 +110,11 @@
 
    ))
 
-(in-package :net.sockets.cc)
+(in-package :iolib.sockets.cc)
 
 (defun shadowing-import-sockets/cc-symbols (&optional (into-package *package*))
   (bind ((exported-symbols (list)))
-    (do-external-symbols (symbol :net.sockets.cc.shadows)
+    (do-external-symbols (symbol :iolib.sockets.cc.shadows)
       (push symbol exported-symbols))
     (shadowing-import exported-symbols into-package)))
 

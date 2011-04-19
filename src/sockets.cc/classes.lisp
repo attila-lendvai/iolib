@@ -19,7 +19,7 @@
 ;;; Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
 ;;; Boston, MA 02110-1301, USA
 
-(in-package :net.sockets.cc)
+(in-package :iolib.sockets.cc)
 
 (defclass connection-multiplexer ()
   ((name
@@ -63,12 +63,12 @@
 (defgeneric connection-registered-p (multiplexer connection))
 
 (defclass connection-acceptor (connection-multiplexer)
-  (;; slots for the runtime state
+  (;; runtime state
    (accepting-connection
     :initform nil
     :initarg :accepting-connection
     :accessor accepting-connection-of)
-   ;; configuration slots
+   ;; configuration
    (connection-handler
     :initarg :connection-handler
     :accessor connection-handler-of

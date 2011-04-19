@@ -19,7 +19,7 @@
 ;;; Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
 ;;; Boston, MA 02110-1301, USA
 
-(in-package :net.sockets.cc)
+(in-package :iolib.sockets.cc)
 
 (defun make-connection (fd &key external-format input-buffer-size
                         output-buffer-size continuation wait-reason)

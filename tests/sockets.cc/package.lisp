@@ -24,7 +24,7 @@
 (in-package :common-lisp-user)
 
 (defpackage :iolib.sockets.cc.tests
-  (:use #:common-lisp :cl-cont :stefil :iolib.sockets.cc :iolib.sockets :alexandria :metabang-bind)
+  (:use #:common-lisp :cl-cont :hu.dwim.stefil :iolib.sockets.cc :iolib.sockets :alexandria :metabang-bind)
 
   (:shadowing-import-from :iolib.sockets
    #:receive-from
@@ -33,4 +33,4 @@
 
 (in-package :iolib.sockets.cc.tests)
 
-(defsuite test :in root-suite)
+(defsuite (test :in root-suite))

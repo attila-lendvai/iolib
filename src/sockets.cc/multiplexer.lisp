@@ -19,7 +19,7 @@
 ;;; Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
 ;;; Boston, MA 02110-1301, USA
 
-(in-package :net.sockets.cc)
+(in-package :iolib.sockets.cc)
 
 ;; TODO why does this code have to wrap the fd in an fd-entry struct?
 
@@ -53,7 +53,7 @@
                   :do (spawn-connection-multiplexer-worker-thread self))
                (setf done t))
           (unless done
-            (io.multiplex::close-multiplexer fd-multiplexer)
+            (iolib.multiplex::close-multiplexer fd-multiplexer)
             (setf (fd-multiplexer-of self) nil))))))
   self)
 
@@ -110,7 +110,7 @@
      :for idx :from 0 :below (length fd->connection)
      :do (unless (null (aref fd->connection idx))
            (warn "A connection is still registered for fd ~A while shutting down ~A" idx self)))
-  (io.multiplex::close-multiplexer (fd-multiplexer-of self))
+  (iolib.multiplex::close-multiplexer (fd-multiplexer-of self))
   (setf (fd-multiplexer-of self) nil))
 
 (defmethod register-connection ((multiplexer connection-multiplexer) (connection connection-with-continuation-mixin))

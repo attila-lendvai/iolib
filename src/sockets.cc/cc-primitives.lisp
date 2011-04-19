@@ -19,7 +19,7 @@
 ;;; Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
 ;;; Boston, MA 02110-1301, USA
 
-(in-package :net.sockets.cc)
+(in-package :iolib.sockets.cc)
 
 (defun/cc read-char/cc (connection &optional eof-error-p eof-value recursive-p)
   (loop
@@ -75,9 +75,9 @@
   (handler-case
       (progn
         ;; TODO fix error handling in io.streams::%write-simple-array-ub8
-        (io.streams::%write-simple-array-ub8 connection buffer start count)
+        (iolib.streams::%write-simple-array-ub8 connection buffer start count)
         count)
-    (nix:ewouldblock ()
+    (isys:ewouldblock ()
       0)))
 
 (defun/cc write-line/cc (string connection)
