@@ -19,5 +19,6 @@
      :pathname #+unix "file-paths-unix")
    (:file "events" :depends-on ("pkgdcl" "defsuites"))
    (:file "streams" :depends-on ("pkgdcl" "defsuites"))
-   (:file "sockets" :depends-on ("pkgdcl" "defsuites")))
+   (:file "sockets" :depends-on ("pkgdcl" "defsuites"))
+   (:file "os" :depends-on ("pkgdcl" "defsuites")))
   :perform (test-op (o c) (symbol-call :5am :run! :iolib)))
